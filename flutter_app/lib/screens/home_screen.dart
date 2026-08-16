@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() => _profile = p);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Display name updated!'), backgroundColor: Colors.emerald),
+          const SnackBar(content: Text('Display name updated!'), backgroundColor: Colors.green),
         );
       }
     } catch (e) {
@@ -209,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFF4338CA).withOpacity(0.5)),
+                  border: Border.all(color: const Color(0xFF4338CA).withValues(alpha: 0.5)),
                 ),
                 child: Column(
                   children: [
@@ -267,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               border: UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFF6366F1))),
                             ),
                             onSubmitted: (_) => _updateUsername(),
-                          ],
+                          ),
                         ),
                         IconButton(
                           icon: const Icon(Icons.check, color: Color(0xFF34D399)),

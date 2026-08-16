@@ -6,7 +6,7 @@ import 'game_over_screen.dart';
 
 class RoundLeaderboardScreen extends StatefulWidget {
   final GameRoom room;
-  final Player currentPlayer;
+  final UserProfile currentPlayer;
 
   const RoundLeaderboardScreen({
     Key? key,
@@ -20,6 +20,8 @@ class RoundLeaderboardScreen extends StatefulWidget {
 
 class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
   late GameRoom _room;
+  List<LeaderboardPlayer> _leaderboard = [];
+  CurrentRoundInfo? _roundInfo;
   bool _isLoading = false;
 
   @override
@@ -31,8 +33,20 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
 
   Future<void> _refreshRoom() async {
     try {
-      final updated = await ApiService.getRoomDetails(_room.code);
-      if (mounted) setState(() => _room = updated);
+      final updated = await ApiService.getRoom(_room.code);
+      if (updated.currentGameId != null) {
+        final roundInfo = await ApiService.getCurrentRound(updated.currentGameId!);
+        final leaderboard = await ApiService.getLeaderboard(updated.currentGameId!);
+        if (mounted) {
+          setState(() {
+            _room = updated;
+            _roundInfo = roundInfo;
+            _leaderboard = leaderboard;
+          });
+        }
+      } else {
+        if (mounted) setState(() => _room = updated);
+      }
     } catch (e) {
       // ignore
     }
@@ -41,21 +55,22 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
   Future<void> _proceedNextRound() async {
     setState(() => _isLoading = true);
     try {
-      final updated = await ApiService.nextRound(_room.code);
+      final updatedData = await ApiService.nextRound(_room.currentGameId!);
+      final updatedStatus = updatedData['status'];
       if (!mounted) return;
 
-      if (updated.status == 'GAME_OVER' || updated.currentRoundIndex > updated.totalRounds) {
+      if (updatedStatus == 'GAME_OVER') {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => GameOverScreen(room: updated, currentPlayer: widget.currentPlayer),
+            builder: (context) => GameOverScreen(gameId: _room.currentGameId ?? "", roomCode: _room.code, isHost: widget.currentPlayer.id == _room.hostId),
           ),
         );
       } else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ScavengerCameraScreen(room: updated, currentPlayer: widget.currentPlayer),
+            builder: (context) => ScavengerCameraScreen(gameId: _room.currentGameId ?? "", roomCode: _room.code, isHost: widget.currentPlayer.id == _room.hostId),
           ),
         );
       }
@@ -70,8 +85,10 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isHost = widget.currentPlayer.isHost;
-    final isLastRound = _room.currentRoundIndex >= _room.totalRounds;
+    final isHost = widget.currentPlayer.id == _room.hostId;
+    final roundNumber = _roundInfo?.roundNumber ?? 1;
+    final totalRounds = _roundInfo?.totalRounds ?? 3;
+    final isLastRound = roundNumber >= totalRounds;
 
     return Scaffold(
       backgroundColor: const Color(0xFF070B14),
@@ -80,7 +97,7 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text(
-          'ROUND ${_room.currentRoundIndex} LEADERBOARD',
+          'ROUND $roundNumber LEADERBOARD',
           style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 1.2),
         ),
         centerTitle: true,
@@ -103,7 +120,7 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
                     const Text('ROUND COMPLETED', style: TextStyle(color: Color(0xFF00E5FF), fontSize: 12, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
                     Text(
-                      isLastRound ? 'FINAL ROUND COMPLETED!' : 'ROUND ${_room.currentRoundIndex} OF ${_room.totalRounds}',
+                      isLastRound ? 'FINAL ROUND COMPLETED!' : 'ROUND $roundNumber OF $totalRounds',
                       style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w900),
                     ),
                   ],
@@ -116,11 +133,11 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
 
               Expanded(
                 child: ListView.builder(
-                  itemCount: _room.players.length,
+                  itemCount: _leaderboard.length,
                   itemBuilder: (context, index) {
-                    final p = _room.players[index];
-                    final isMe = p.id == widget.currentPlayer.id;
-                    final rank = index + 1;
+                    final p = _leaderboard[index];
+                    final isMe = p.profileId == widget.currentPlayer.id;
+                    final rank = p.rank;
 
                     return Container(
                       margin: const EdgeInsets.only(bottom: 10),
@@ -155,11 +172,11 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  p.nickname + (isMe ? ' (You)' : ''),
+                                  p.username + (isMe ? ' (You)' : ''),
                                   style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
                                 ),
                                 Text(
-                                  '${p.roundsWon} items verified',
+                                  '${p.validCount} items verified',
                                   style: const TextStyle(color: Colors.white38, fontSize: 12),
                                 ),
                               ],
@@ -188,7 +205,7 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
                   child: _isLoading
                       ? const CircularProgressIndicator(color: Colors.black)
                       : Text(
-                          isLastRound ? 'VIEW FINAL RESULTS 🏆' : 'NEXT ROUND (${_room.currentRoundIndex + 1}/${_room.totalRounds}) ➔',
+                          isLastRound ? 'VIEW FINAL RESULTS 🏆' : 'NEXT ROUND (${roundNumber + 1}/$totalRounds) ➔',
                           style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 15, letterSpacing: 0.5),
                         ),
                 )

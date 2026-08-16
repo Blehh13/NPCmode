@@ -5,7 +5,7 @@ djangorestframework==3.15.1
 google-genai==0.1.1
 Pillow==10.2.0
 python-dotenv==1.0.1
-channels==4.0.0
-daphne==4.1.0
+psycopg2-binary==2.9.9
+dj-database-url==2.1.0
 requests==2.31.0
 gunicorn==21.2.0
