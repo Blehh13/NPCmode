@@ -37,7 +37,7 @@ class VerificationReportCard extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: statusColor.withOpacity(0.3),
+              color: statusColor.withValues(alpha: 0.3),
               blurRadius: 20,
               spreadRadius: 2,
             ),
@@ -85,7 +85,7 @@ class VerificationReportCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
-                  color: CyberTheme.cyberYellow.withOpacity(0.15),
+                  color: CyberTheme.cyberYellow.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: CyberTheme.cyberYellow),
                 ),
@@ -126,7 +126,7 @@ class VerificationReportCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: CyberTheme.cardSurface,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: CyberTheme.cyberBlue.withOpacity(0.5)),
+                  border: Border.all(color: CyberTheme.cyberBlue.withValues(alpha: 0.5)),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,10 +178,10 @@ class VerificationReportCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: isOk ? CyberTheme.cyberGreen.withOpacity(0.1) : Colors.red.withOpacity(0.1),
+        color: isOk ? CyberTheme.cyberGreen.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: isOk ? CyberTheme.cyberGreen.withOpacity(0.6) : Colors.redAccent.withOpacity(0.6),
+          color: isOk ? CyberTheme.cyberGreen.withValues(alpha: 0.6) : Colors.redAccent.withValues(alpha: 0.6),
         ),
       ),
       child: Text(

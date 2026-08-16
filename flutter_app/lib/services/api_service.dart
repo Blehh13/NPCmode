@@ -7,7 +7,7 @@ import '../models/game_models.dart';
 
 class ApiService {
   // Default to local dev URL (127.0.0.1 works for physical devices via adb reverse and emulators)
-  static String baseUrl = 'http://127.0.0.1:8000/api';
+  static String baseUrl = 'https://npcmode.onrender.com/api';
   static String? _cachedDeviceToken;
 
   static Future<String> getDeviceToken() async {

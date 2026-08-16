@@ -36,8 +36,7 @@ class _ScavengerCameraScreenState extends State<ScavengerCameraScreen> {
   bool _isSubmitting = false;
   String? _lastVerdictMessage;
   bool? _lastVerdictValid;
-  int _lastScoreAwarded = 0;
-  int _lastStreakBonus = 0;
+
 
   @override
   void initState() {
@@ -171,8 +170,7 @@ class _ScavengerCameraScreenState extends State<ScavengerCameraScreen> {
 
       setState(() {
         _lastVerdictValid = isValid;
-        _lastScoreAwarded = score;
-        _lastStreakBonus = streakBonus;
+
         _lastVerdictMessage = isValid
             ? "MATCH VERIFIED! +$score PTS${streakBonus > 0 ? ' (STREAK +$streakBonus)' : ''}"
             : "NOT A MATCH! Try again.";
@@ -285,7 +283,7 @@ class _ScavengerCameraScreenState extends State<ScavengerCameraScreen> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
+                          color: Colors.black.withValues(alpha: 0.7),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: Colors.white24),
                         ),
@@ -299,7 +297,7 @@ class _ScavengerCameraScreenState extends State<ScavengerCameraScreen> {
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.7),
+                          color: Colors.black.withValues(alpha: 0.7),
                           shape: BoxShape.circle,
                           border: Border.all(
                             color: _secondsLeft <= 5 ? Colors.redAccent : const Color(0xFF6366F1),
@@ -325,9 +323,9 @@ class _ScavengerCameraScreenState extends State<ScavengerCameraScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.black.withValues(alpha: 0.8),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFF6366F1).withOpacity(0.8), width: 1.5),
+                      border: Border.all(color: const Color(0xFF6366F1).withValues(alpha: 0.8), width: 1.5),
                     ),
                     child: Column(
                       children: [
@@ -410,7 +408,7 @@ class _ScavengerCameraScreenState extends State<ScavengerCameraScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -469,7 +467,7 @@ class _ScavengerCameraScreenState extends State<ScavengerCameraScreen> {
                         width: 76,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white.withOpacity(0.2),
+                          color: Colors.white.withValues(alpha: 0.2),
                           border: Border.all(color: Colors.white, width: 4),
                         ),
                         child: Center(

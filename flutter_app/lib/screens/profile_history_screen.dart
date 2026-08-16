@@ -78,10 +78,10 @@ class _ProfileHistoryScreenState extends State<ProfileHistoryScreen> {
                       ),
                       child: Column(
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             radius: 30,
-                            backgroundColor: const Color(0xFF6366F1),
-                            child: const Icon(Icons.person, size: 36, color: Colors.white),
+                            backgroundColor: Color(0xFF6366F1),
+                            child: Icon(Icons.person, size: 36, color: Colors.white),
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -145,7 +145,7 @@ class _ProfileHistoryScreenState extends State<ProfileHistoryScreen> {
                               color: const Color(0xFF1E293B),
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: rank == 1 ? Colors.amber.withOpacity(0.6) : const Color(0xFF334155),
+                                color: rank == 1 ? Colors.amber.withValues(alpha: 0.6) : const Color(0xFF334155),
                               ),
                             ),
                             child: Column(
@@ -197,7 +197,7 @@ class _ProfileHistoryScreenState extends State<ProfileHistoryScreen> {
                                     return Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                       decoration: BoxDecoration(
-                                        color: isValid ? const Color(0xFF065F46) : const Color(0xFF991B1B).withOpacity(0.5),
+                                        color: isValid ? const Color(0xFF065F46) : const Color(0xFF991B1B).withValues(alpha: 0.5),
                                         borderRadius: BorderRadius.circular(6),
                                       ),
                                       child: Text(

@@ -9,10 +9,10 @@ class RoundLeaderboardScreen extends StatefulWidget {
   final UserProfile currentPlayer;
 
   const RoundLeaderboardScreen({
-    Key? key,
+    super.key,
     required this.room,
     required this.currentPlayer,
-  }) : super(key: key);
+  });
 
   @override
   State<RoundLeaderboardScreen> createState() => _RoundLeaderboardScreenState();
@@ -111,9 +111,9 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF00E5FF).withOpacity(0.1),
+                  color: const Color(0xFF00E5FF).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFF00E5FF).withOpacity(0.3)),
+                  border: Border.all(color: const Color(0xFF00E5FF).withValues(alpha: 0.3)),
                 ),
                 child: Column(
                   children: [
@@ -143,9 +143,9 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isMe ? const Color(0xFF00E5FF).withOpacity(0.15) : const Color(0xFF0E1626),
+                        color: isMe ? const Color(0xFF00E5FF).withValues(alpha: 0.15) : const Color(0xFF0E1626),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: isMe ? const Color(0xFF00E5FF).withOpacity(0.5) : Colors.white.withOpacity(0.05)),
+                        border: Border.all(color: isMe ? const Color(0xFF00E5FF).withValues(alpha: 0.5) : Colors.white.withValues(alpha: 0.05)),
                       ),
                       child: Row(
                         children: [
@@ -214,7 +214,7 @@ class _RoundLeaderboardScreenState extends State<RoundLeaderboardScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.05),
+                    color: Colors.white.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: const Text('WAITING FOR HOST TO ADVANCE...', style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold, fontSize: 13)),

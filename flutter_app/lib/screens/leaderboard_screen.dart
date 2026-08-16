@@ -191,7 +191,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                             margin: const EdgeInsets.only(bottom: 10),
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: isTop ? const Color(0xFF312E81).withOpacity(0.5) : const Color(0xFF1E293B),
+                              color: isTop ? const Color(0xFF312E81).withValues(alpha: 0.5) : const Color(0xFF1E293B),
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                 color: isTop ? const Color(0xFF6366F1) : const Color(0xFF334155),

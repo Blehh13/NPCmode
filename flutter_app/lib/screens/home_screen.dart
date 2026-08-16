@@ -264,10 +264,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: const Color(0xFF6366F1),
+                        const CircleAvatar(
+                          backgroundColor: Color(0xFF6366F1),
                           radius: 20,
-                          child: const Icon(Icons.person, color: Colors.white),
+                          child: Icon(Icons.person, color: Colors.white),
                         ),
                         const SizedBox(width: 12),
                         Expanded(

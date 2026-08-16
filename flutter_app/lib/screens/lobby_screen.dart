@@ -8,8 +8,7 @@ class LobbyScreen extends StatefulWidget {
   final GameRoom room;
   final UserProfile currentPlayer;
 
-  const LobbyScreen({Key? key, required this.room, required this.currentPlayer})
-      : super(key: key);
+  const LobbyScreen({super.key, required this.room, required this.currentPlayer});
 
   @override
   State<LobbyScreen> createState() => _LobbyScreenState();

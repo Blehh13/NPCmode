@@ -80,7 +80,7 @@ class _GameOverScreenState extends State<GameOverScreen> {
                     end: Alignment.bottomCenter,
                   ),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.amber.withOpacity(0.6), width: 1.5),
+                  border: Border.all(color: Colors.amber.withValues(alpha: 0.6), width: 1.5),
                 ),
                 child: Column(
                   children: [
@@ -128,7 +128,7 @@ class _GameOverScreenState extends State<GameOverScreen> {
                             margin: const EdgeInsets.only(bottom: 8),
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                             decoration: BoxDecoration(
-                              color: isChampion ? const Color(0xFF1E293B) : const Color(0xFF1E293B).withOpacity(0.6),
+                              color: isChampion ? const Color(0xFF1E293B) : const Color(0xFF1E293B).withValues(alpha: 0.6),
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                 color: isChampion ? Colors.amber : const Color(0xFF334155),

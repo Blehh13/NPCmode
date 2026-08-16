@@ -28,7 +28,7 @@ class _GridPainter extends CustomPainter {
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), bgPaint);
 
     final linePaint = Paint()
-      ..color = CyberTheme.cyberGreen.withOpacity(0.06)
+      ..color = CyberTheme.cyberGreen.withValues(alpha: 0.06)
       ..strokeWidth = 1.0;
 
     const double gridSize = 40.0;
