@@ -145,7 +145,7 @@ class _ScavengerCameraScreenState extends State<ScavengerCameraScreen> {
         // Fallback for emulator / web
         final picker = ImagePicker();
         final picked = await picker.pickImage(
-          source: ImageSource.gallery,
+          source: ImageSource.camera,
           maxWidth: 1024,
           maxHeight: 1024,
           imageQuality: 85,

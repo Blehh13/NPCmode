@@ -54,6 +54,9 @@ class RoomPlayer(models.Model):
     def __str__(self):
         return f"{self.profile.username} in {self.room.code}"
 
+def default_challenge_types():
+    return ['COLOR', 'SHAPE', 'TEXT', 'NUMBER', 'PATTERN', 'TRANSPARENCY']
+
 class GameSettings(models.Model):
     CHALLENGE_TYPES = ['COLOR', 'SHAPE', 'TEXT', 'NUMBER', 'PATTERN', 'TRANSPARENCY']
 
@@ -61,7 +64,7 @@ class GameSettings(models.Model):
     room = models.OneToOneField(Room, on_delete=models.CASCADE, related_name='settings')
     rounds_count = models.IntegerField(choices=[(3, 3), (5, 5), (7, 7)], default=3)
     round_duration_seconds = models.IntegerField(choices=[(15, 15), (30, 30), (45, 45)], default=30)
-    enabled_challenge_types = models.JSONField(default=lambda: ['COLOR', 'SHAPE', 'TEXT', 'NUMBER', 'PATTERN', 'TRANSPARENCY'])
+    enabled_challenge_types = models.JSONField(default=default_challenge_types)
 
     def to_dict(self):
         return {
