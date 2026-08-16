@@ -1,8 +1,24 @@
+# Dependencies
 node_modules/
+venv/
+.venv/
+
+# Builds & Caches
 build/
 dist/
 coverage/
 .DS_Store
 *.log
-.env*
+*.hprof
+__pycache__/
+*.pyc
+db.sqlite3
+.gradle/
+.dart_tool/
+.vscode/
+
+# Environment Variables
+.env
+.env.local
+.env.production
 !.env.example

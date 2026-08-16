@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/game_models.dart';
 import '../services/api_service.dart';
+import '../widgets/cyber_ui/cyber_grid_background.dart';
+import '../widgets/cyber_ui/cyber_theme.dart';
 import 'waiting_room_screen.dart';
 import 'profile_history_screen.dart';
 
@@ -109,16 +111,13 @@ class _HomeScreenState extends State<HomeScreen> {
         await ApiService.syncProfile(username: name);
       }
       final room = await ApiService.joinRoom(code);
-      final myToken = await ApiService.getDeviceToken();
-      final isHost = room.hostDeviceToken == myToken;
-
       if (mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (_) => WaitingRoomScreen(
               roomCode: room.code,
-              isHost: isHost,
+              isHost: false,
             ),
           ),
         );
@@ -138,13 +137,13 @@ class _HomeScreenState extends State<HomeScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF1E293B),
+        backgroundColor: CyberTheme.cardSurface,
         title: const Text('Backend API URL', style: TextStyle(color: Colors.white)),
         content: TextField(
           controller: _serverUrlController,
           style: const TextStyle(color: Colors.white),
           decoration: const InputDecoration(
-            hintText: 'http://10.0.2.2:8000/api',
+            hintText: 'http://127.0.0.1:8000/api',
             hintStyle: TextStyle(color: Colors.white38),
             border: OutlineInputBorder(),
           ),
@@ -152,16 +151,16 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: Colors.white70)),
+            child: const Text('Cancel'),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: CyberTheme.cyberBlue),
             onPressed: () {
               ApiService.setBaseUrl(_serverUrlController.text.trim());
               Navigator.pop(ctx);
               _loadProfile();
             },
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF6366F1)),
-            child: const Text('Save'),
+            child: const Text('Save', style: TextStyle(color: Colors.black)),
           ),
         ],
       ),
@@ -171,17 +170,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: CyberTheme.black800,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Row(
           children: [
-            Icon(Icons.camera_alt_outlined, color: Color(0xFF6366F1)),
+            Icon(Icons.center_focus_strong, color: CyberTheme.cyberGreen),
             SizedBox(width: 10),
             Text(
-              'SCAVENGER AI',
-              style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.5, fontSize: 18),
+              'NPC MODE',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                letterSpacing: 2.0,
+                fontSize: 20,
+                color: CyberTheme.cyberGreen,
+              ),
             ),
           ],
         ),
@@ -203,8 +207,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: CyberGridBackground(
+        child: SafeArea(
+          child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -389,6 +394,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    ),
     );
   }
 }

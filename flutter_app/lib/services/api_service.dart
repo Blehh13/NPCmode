@@ -6,8 +6,8 @@ import 'package:uuid/uuid.dart';
 import '../models/game_models.dart';
 
 class ApiService {
-  // Default to local dev URL or Django server
-  static String baseUrl = 'http://10.0.2.2:8000/api';
+  // Default to local dev URL (127.0.0.1 works for physical devices via adb reverse and emulators)
+  static String baseUrl = 'http://127.0.0.1:8000/api';
   static String? _cachedDeviceToken;
 
   static Future<String> getDeviceToken() async {
