@@ -32,7 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
       final profile = await ApiService.syncProfile();
       setState(() {
         _profile = profile;
-        _usernameController.text = profile.username;
+        if (!profile.username.startsWith('Operator_')) {
+          _usernameController.text = profile.username;
+        }
       });
     } catch (e) {
       debugPrint("Profile load error: $e");
@@ -64,6 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _handleCreateRoom() async {
     setState(() => _isLoading = true);
     try {
+      final name = _usernameController.text.trim();
+      if (name.isNotEmpty && name != _profile?.username) {
+        await ApiService.syncProfile(username: name);
+      }
       final room = await ApiService.createRoom();
       if (mounted) {
         Navigator.push(
@@ -98,6 +104,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
     setState(() => _isLoading = true);
     try {
+      final name = _usernameController.text.trim();
+      if (name.isNotEmpty && name != _profile?.username) {
+        await ApiService.syncProfile(username: name);
+      }
       final room = await ApiService.joinRoom(code);
       final myToken = await ApiService.getDeviceToken();
       final isHost = room.hostDeviceToken == myToken;

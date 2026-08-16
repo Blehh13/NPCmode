@@ -48,7 +48,7 @@ PROMPT_BANK = {
 }
 
 # OpenRouter model to use — fast, multimodal, excellent for VQA
-OPENROUTER_MODEL = "google/gemini-flash-1.5"
+OPENROUTER_MODEL = "google/gemini-2.5-flash"
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 
