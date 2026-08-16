@@ -1,0 +1,10 @@
+{
+  "name": "Remix NPC Mode",
+  "description": "AI-powered real-world multiplayer scavenger game where the physical world is the board, camera is the controller, and AI is the referee.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
